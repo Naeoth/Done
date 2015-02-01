@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.alexis.done.R;
@@ -16,7 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddTaskActivity extends ActionBarActivity implements OnClickListener {
+public class AddTaskActivity extends ActionBarActivity implements OnClickListener, OnSeekBarChangeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,9 @@ public class AddTaskActivity extends ActionBarActivity implements OnClickListene
 
         Button inputDuration = (Button) findViewById(R.id.button_input_duration_addTask);
         inputDuration.setOnClickListener(this);
+
+        SeekBar progressBar = (SeekBar) findViewById(R.id.progressBar_addTask);
+        progressBar.setOnSeekBarChangeListener(this);
     }
 
 
@@ -101,7 +107,7 @@ public class AddTaskActivity extends ActionBarActivity implements OnClickListene
             else if ( data.hasExtra("durationHour") && data.hasExtra("durationMin") ) {
                 TextView displayInputtedDuration = (TextView) findViewById(R.id.display_duration_addTask);
                 String hour = data.getExtras().getInt("durationHour") + "h" ;
-                String min = formatDisplay( Integer.toString( data.getExtras().getInt("durationMin") ), "mm");
+                String min = formatDisplay(Integer.toString(data.getExtras().getInt("durationMin")), "mm");
                 displayInputtedDuration.setText(hour + min);
             }
         }
@@ -119,5 +125,21 @@ public class AddTaskActivity extends ActionBarActivity implements OnClickListene
         }
 
         return ret;
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        TextView displayProgress = (TextView) findViewById(R.id.value_progressBar_addTask);
+        displayProgress.setText( String.valueOf(progress) + "%" );
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 }

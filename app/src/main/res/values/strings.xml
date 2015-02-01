@@ -22,8 +22,9 @@
     <string name="button_duration_view_add_task">Modifier la durée</string>
     <string name="default_duration_view_add_task">1h00</string>
     <string name="description_view_add_task">Description</string>
-    <string name="hint_input_description_view_addTask">Entrer la description de la tâche</string>
+    <string name="hint_input_description_view_add_task">Entrer la description de la tâche</string>
     <string name="percent_view_add_task">% réalisé</string>
+    <string name="default_value_progressBar_view_add_task">0%</string>
 
     <string name="title_activity_input_date">InputDateActivity</string>
     <string name="title_activity_input_time">InputTimeActivity</string>

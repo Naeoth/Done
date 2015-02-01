@@ -210,7 +210,7 @@
 
             <EditText
                 android:id="@+id/input_description_addTask"
-                android:hint="@string/hint_input_description_view_addTask"
+                android:hint="@string/hint_input_description_view_add_task"
                 android:background="@drawable/edit_text_design"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -226,7 +226,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_description_addTask"
             android:layout_marginTop="@dimen/space_between_field"
-            android:background="@drawable/rounded_corner">
+            android:background="@drawable/rounded_corner"
+            >
 
             <TextView
                 android:id="@+id/percent_addTask"
@@ -242,12 +243,31 @@
                 android:layout_width="wrap_content"
                 android:layout_below="@+id/percent_addTask"/>
 
-            <SeekBar
-                android:id="@+id/input_percent_addTask"
+            <RelativeLayout
+                android:id="@+id/layout_progressBar_addTask"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/line_percent_addTask"
-                android:layout_marginTop="5dp"/>
+                android:layout_height="match_parent"
+                android:layout_below="@+id/percent_addTask"
+                android:layout_marginBottom="-10dp">
+
+                <TextView
+                    android:id="@+id/value_progressBar_addTask"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/default_value_progressBar_view_add_task" />
+
+                <SeekBar
+                    android:id="@+id/progressBar_addTask"
+                    android:max="100"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:paddingStart="11dp"
+                    android:paddingEnd="40dp"
+                    android:layout_marginBottom="10dp"/>
+            </RelativeLayout>
 
         </RelativeLayout>
 
