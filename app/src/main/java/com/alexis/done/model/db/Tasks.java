@@ -1,4 +1,4 @@
-package com.alexis.done.data.db;
+package com.alexis.done.model.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

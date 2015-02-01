@@ -1,4 +1,4 @@
-package com.alexis.done.data;
+package com.alexis.done.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -6,6 +6,7 @@ import java.util.Date;
 
 /**
  * Created by Alexis on 23/01/2015.
+ *
  */
 public class Task {
 
@@ -84,21 +85,6 @@ public class Task {
 
     public void setDuration(int duration) {
         this.duration = duration;
-    }
-
-
-    // ----- OTHER METHODS
-
-    private String getTodayDate() {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        return dateFormat.format(date);
-    }
-
-    private String whatTimeIsIt() {
-        DateFormat hourFormat = new SimpleDateFormat("HH:mm");
-        Date hour = new Date();
-        return hourFormat.format(hour);
     }
 
 }

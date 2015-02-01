@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.alexis.done.view.activities.InputDurationActivity">
+
+    <RelativeLayout
+        android:id="@+id/layout_inputDuration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner">
+
+        <TextView
+            android:id="@+id/title_inputDuration"
+            android:text="@string/title_view_input_duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <View
+            android:id="@+id/line_inputDuration"
+            android:layout_height="1dp"
+            android:background="#909090"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/title_inputDuration"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_center_inputDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line_inputDuration"
+            android:layout_centerHorizontal="true">
+
+            <NumberPicker
+                android:id="@+id/input_h_inputDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/display_h_inputDuration"
+                android:text="@string/h_view_input_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginTop="80dp"
+                android:layout_marginStart="80dp"/>
+
+            <NumberPicker
+                android:id="@+id/input_m_inputDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/display_h_inputDuration"
+                android:layout_marginStart="20dp"/>
+
+            <TextView
+                android:id="@+id/display_m_inputDuration"
+                android:text="@string/m_view_input_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_alignStart="@+id/input_m_inputDuration"
+                android:layout_marginTop="80dp"
+                android:layout_marginStart="80dp"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/button_select_inputDuration"
+        android:text="@string/button_select_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_inputDuration"
+        android:layout_marginTop="10dp"/>
+
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.alexis.done.data.db;
+package com.alexis.done.model.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,12 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
-import com.alexis.done.data.Task;
+import com.alexis.done.model.Task;
 
 import java.util.ArrayList;
 
 /**
  * Created by Alexis on 23/01/2015.
+ *
  */
 public class TasksDAO {
 
