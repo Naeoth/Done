@@ -262,7 +262,7 @@
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:paddingStart="11dp"
-                    android:paddingEnd="40dp"
+                    android:paddingEnd="50dp"
                     android:layout_marginBottom="10dp"/>
             </RelativeLayout>
 

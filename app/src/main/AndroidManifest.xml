@@ -32,6 +32,10 @@
             android:name=".view.activities.InputDurationActivity"
             android:label="@string/title_activity_input_duration" >
         </activity>
+        <activity
+            android:name=".view.activities.UpdateTaskActivity"
+            android:label="@string/title_activity_update_task" >
+        </activity>
     </application>
 
 </manifest>

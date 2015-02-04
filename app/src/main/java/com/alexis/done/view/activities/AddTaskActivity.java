@@ -28,7 +28,7 @@ public class AddTaskActivity extends ActionBarActivity {
         initControllers();
     }
 
-    private void initDefaultDisplay() {
+    protected void initDefaultDisplay() {
         TextView displayTitleView = (TextView) findViewById(R.id.title_addTask);
         displayTitleView.setText(R.string.title_view_add_task);
 
@@ -42,7 +42,7 @@ public class AddTaskActivity extends ActionBarActivity {
         displayInputtedTime.setText( hourFormat.format(currentDate) );
     }
 
-    private void initControllers() {
+    protected void initControllers() {
         Button inputDate = (Button) findViewById(R.id.button_input_date_addTask);
         inputDate.setOnClickListener( ButtonsListener.getInstance() );
 
