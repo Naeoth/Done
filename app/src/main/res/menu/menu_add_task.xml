@@ -7,12 +7,12 @@
         android:id="@+id/action_done"
         android:title="@string/text_action_done"
         android:icon="@drawable/ic_launcher"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom|withText"/>
 
     <item
         android:id="@+id/action_cancel"
         android:title="@string/text_action_cancel"
         android:icon="@drawable/ic_launcher"
-        app:showAsAction="always|withText"/>
+        app:showAsAction="ifRoom|withText"/>
 
 </menu>

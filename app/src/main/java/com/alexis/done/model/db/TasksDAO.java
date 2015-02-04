@@ -32,10 +32,11 @@ public class TasksDAO {
     public static final String TASKS_ID = "id";
     public static final String TASKS_TITLE = "title";
     public static final String TASKS_TYPE = "type";
-    public static final String TASKS_DESCRIPTION = "description";
-    public static final String TASKS_DURATION = "duration";
     public static final String TASKS_DATE = "date";
-    public static final String TASKS_HOUR = "hour";
+    public static final String TASKS_TIME = "time";
+    public static final String TASKS_DURATION = "duration";
+    public static final String TASKS_DESCRIPTION = "description";
+    public static final String TASKS_PROGRESS = "progress";
 
 
     // ---------- CONSTRUCTOR
@@ -68,21 +69,22 @@ public class TasksDAO {
     public ArrayList<Task> getTasks(){
         ArrayList<Task> ret = new ArrayList<Task>();
         Task tmp = null;
-        int tmpId, tmpDuration;
-        String tmpTitle, tmpType, tmpDescription, tmpDate, tmpHour;
+        int tmpId, tmpType, tmpProgress;
+        String tmpTitle, tmpDescription, tmpDuration, tmpDate, tmpTime;
 
-        Cursor c = db.query(TASKS, new String[] {TASKS_ID, TASKS_TITLE, TASKS_TYPE, TASKS_DESCRIPTION, TASKS_DURATION, TASKS_DATE, TASKS_HOUR}, null, null, null, null, null);
+        Cursor c = db.query(TASKS, new String[] {TASKS_ID, TASKS_TITLE, TASKS_TYPE, TASKS_DATE, TASKS_TIME, TASKS_DURATION, TASKS_DESCRIPTION, TASKS_PROGRESS}, null, null, null, null, null);
         while(c.moveToNext()){
 
             tmpId = c.getInt(0);
             tmpTitle = c.getString(1);
-            tmpType = c.getString(2);
-            tmpDescription = c.getString(3);
-            tmpDuration = c.getInt(4);
-            tmpDate = c.getString(5);
-            tmpHour = c.getString(6);
+            tmpType = c.getInt(2);
+            tmpDate = c.getString(3);
+            tmpTime = c.getString(4);
+            tmpDuration = c.getString(5);
+            tmpDescription = c.getString(6);
+            tmpProgress = c.getInt(7);
 
-            tmp = new Task(tmpId, tmpTitle, tmpType, tmpDescription, tmpDuration, tmpDate, tmpHour);
+            tmp = new Task(tmpId, tmpTitle, tmpType, tmpDate, tmpTime, tmpDuration, tmpDescription, tmpProgress);
             ret.add(tmp);
         }
         c.close();
@@ -99,10 +101,11 @@ public class TasksDAO {
             ContentValues values = new ContentValues();
             values.put(TASKS_TITLE, t.getTitle());
             values.put(TASKS_TYPE, t.getType());
-            values.put(TASKS_DESCRIPTION, t.getDescription());
-            values.put(TASKS_DURATION, t.getDuration());
             values.put(TASKS_DATE, t.getDate());
-            values.put(TASKS_HOUR, t.getHour());
+            values.put(TASKS_TIME, t.getTime());
+            values.put(TASKS_DURATION, t.getDuration());
+            values.put(TASKS_DESCRIPTION, t.getDescription());
+            values.put(TASKS_PROGRESS, t.getProgress());
 
             ret = db.insert(TASKS, null, values);
 

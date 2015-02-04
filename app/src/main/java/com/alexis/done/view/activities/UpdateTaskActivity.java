@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.EditText;
 
 import com.alexis.done.R;
+import com.alexis.done.model.Task;
 
 public class UpdateTaskActivity extends AddTaskActivity {
 
@@ -21,16 +22,31 @@ public class UpdateTaskActivity extends AddTaskActivity {
 
     @Override
     protected void initDefaultDisplay() {
-        TextView displayTitleView = (TextView) findViewById(R.id.title_addTask);
+        TextView displayTitleView = (TextView) findViewById(R.id.title_view_addTask);
         displayTitleView.setText(R.string.title_view_update_task);
 
-        EditText name = (EditText) findViewById(R.id.input_name_addTask);
-        Spinner typeList = (Spinner) findViewById(R.id.list_type_addTask);
-        TextView date = (TextView) findViewById(R.id.display_date_addTask);
-        TextView time = (TextView) findViewById(R.id.display_time_addTask);
-        TextView duration = (TextView) findViewById(R.id.display_duration_addTask);
-        EditText description = (EditText) findViewById(R.id.input_description_addTask);
-        SeekBar progress = (SeekBar) findViewById(R.id.progressBar_addTask);
-    }
+        Bundle bundle = getIntent().getExtras();
+        Task currentTask = bundle.getParcelable("task");
 
+        EditText title = (EditText) findViewById(R.id.input_title_addTask);
+        title.setText( currentTask.getTitle() );
+
+        Spinner typeList = (Spinner) findViewById(R.id.list_type_addTask);
+        typeList.setSelection( currentTask.getType() );
+
+        TextView date = (TextView) findViewById(R.id.display_date_addTask);
+        date.setText( currentTask.getDate() );
+
+        TextView time = (TextView) findViewById(R.id.display_time_addTask);
+        time.setText( currentTask.getTime() );
+
+        TextView duration = (TextView) findViewById(R.id.display_duration_addTask);
+        duration.setText( currentTask.getDuration() );
+
+        EditText description = (EditText) findViewById(R.id.input_description_addTask);
+        description.setText( currentTask.getDescription() );
+
+        SeekBar progress = (SeekBar) findViewById(R.id.progressBar_addTask);
+        progress.setProgress( currentTask.getProgress() );
+    }
 }

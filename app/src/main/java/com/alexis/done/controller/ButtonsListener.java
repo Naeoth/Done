@@ -31,49 +31,56 @@ public class ButtonsListener implements OnClickListener {
     public void onClick(View v) {
         Activity currentActivity = (Activity) v.getContext();
 
-        if (v.getId() == R.id.button_input_date_addTask) {
-            Intent dateInputActivity = new Intent(currentActivity, InputDateActivity.class);
-            currentActivity.startActivityForResult(dateInputActivity, 1);
-        }
-        else if (v.getId() == R.id.button_input_time_addTask) {
-            Intent timeInputActivity = new Intent(currentActivity, InputTimeActivity.class);
-            currentActivity.startActivityForResult(timeInputActivity, 2);
-        }
-        else if (v.getId() == R.id.button_input_duration_addTask) {
-            Intent durationInputActivity = new Intent(currentActivity, InputDurationActivity.class);
-            currentActivity.startActivityForResult(durationInputActivity, 3);
-        }
-        else if (v.getId() == R.id.button_select_inputDate) {
-            DatePicker inputDate = (DatePicker) currentActivity.findViewById(R.id.datePicker_inputDate);
-            Intent returnDate = new Intent();
+        switch ( v.getId() ) {
+            case R.id.button_input_date_addTask:
+                Intent dateInputActivity = new Intent(currentActivity, InputDateActivity.class);
+                currentActivity.startActivityForResult(dateInputActivity, 1);
+                break;
 
-            returnDate.putExtra( "dateDay", inputDate.getDayOfMonth() );
-            returnDate.putExtra( "dateMonth", inputDate.getMonth() + 1 );
-            returnDate.putExtra( "dateYear", inputDate.getYear() );
-            currentActivity.setResult(Activity.RESULT_OK, returnDate);
+            case R.id.button_input_time_addTask:
+                Intent timeInputActivity = new Intent(currentActivity, InputTimeActivity.class);
+                currentActivity.startActivityForResult(timeInputActivity, 2);
+                break;
 
-            currentActivity.finish();
-        }
-        else if (v.getId() == R.id.button_select_inputTime) {
-            TimePicker inputTime = (TimePicker) currentActivity.findViewById(R.id.timePicker_inputTime);
-            Intent returnTime = new Intent();
+            case R.id.button_input_duration_addTask:
+                Intent durationInputActivity = new Intent(currentActivity, InputDurationActivity.class);
+                currentActivity.startActivityForResult(durationInputActivity, 3);
+                break;
 
-            returnTime.putExtra( "timeHour", inputTime.getCurrentHour() );
-            returnTime.putExtra( "timeMin", inputTime.getCurrentMinute() );
-            currentActivity.setResult(Activity.RESULT_OK, returnTime);
+            case R.id.button_select_inputDate:
+                DatePicker inputDate = (DatePicker) currentActivity.findViewById(R.id.datePicker_inputDate);
+                Intent returnDate = new Intent();
 
-            currentActivity.finish();
-        }
-        else if (v.getId() == R.id.button_select_inputDuration) {
-            NumberPicker inputHour = (NumberPicker) currentActivity.findViewById(R.id.input_h_inputDuration);
-            NumberPicker inputMin = (NumberPicker) currentActivity.findViewById(R.id.input_m_inputDuration);
-            Intent returnDuration = new Intent();
+                returnDate.putExtra("dateDay", inputDate.getDayOfMonth());
+                returnDate.putExtra("dateMonth", inputDate.getMonth() + 1);
+                returnDate.putExtra("dateYear", inputDate.getYear());
+                currentActivity.setResult(Activity.RESULT_OK, returnDate);
 
-            returnDuration.putExtra( "durationHour", inputHour.getValue() );
-            returnDuration.putExtra( "durationMin", inputMin.getValue() );
-            currentActivity.setResult(Activity.RESULT_OK, returnDuration);
+                currentActivity.finish();
+                break;
 
-            currentActivity.finish();
+            case R.id.button_select_inputTime:
+                TimePicker inputTime = (TimePicker) currentActivity.findViewById(R.id.timePicker_inputTime);
+                Intent returnTime = new Intent();
+
+                returnTime.putExtra("timeHour", inputTime.getCurrentHour());
+                returnTime.putExtra("timeMin", inputTime.getCurrentMinute());
+                currentActivity.setResult(Activity.RESULT_OK, returnTime);
+
+                currentActivity.finish();
+                break;
+
+            case R.id.button_select_inputDuration:
+                NumberPicker inputHour = (NumberPicker) currentActivity.findViewById(R.id.input_h_inputDuration);
+                NumberPicker inputMin = (NumberPicker) currentActivity.findViewById(R.id.input_m_inputDuration);
+                Intent returnDuration = new Intent();
+
+                returnDuration.putExtra("durationHour", inputHour.getValue());
+                returnDuration.putExtra("durationMin", inputMin.getValue());
+                currentActivity.setResult(Activity.RESULT_OK, returnDuration);
+
+                currentActivity.finish();
+                break;
         }
     }
 }

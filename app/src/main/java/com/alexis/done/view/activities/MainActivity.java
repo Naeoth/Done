@@ -1,11 +1,13 @@
 package com.alexis.done.view.activities;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.alexis.done.R;
+import com.alexis.done.model.Task;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -14,6 +16,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent tmp = new Intent(this, AddTaskActivity.class);
+        startActivityForResult(tmp, 1);
     }
 
 
@@ -37,5 +42,14 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            Task addedTask = data.getParcelableExtra("addedTask");
+        }
     }
 }

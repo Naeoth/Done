@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alexis.done.R;
 import com.alexis.done.controller.ButtonsListener;
 import com.alexis.done.controller.SeekBarsListener;
+import com.alexis.done.model.Task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,16 +33,17 @@ public class AddTaskActivity extends ActionBarActivity {
     }
 
     protected void initDefaultDisplay() {
-        TextView displayTitleView = (TextView) findViewById(R.id.title_addTask);
+        TextView displayTitleView = (TextView) findViewById(R.id.title_view_addTask);
         displayTitleView.setText(R.string.title_view_add_task);
 
-        TextView displayInputtedDate = (TextView) findViewById(R.id.display_date_addTask);
-        TextView displayInputtedTime = (TextView) findViewById(R.id.display_time_addTask);
-
         Date currentDate = new Date();
+
+        TextView displayInputtedDate = (TextView) findViewById(R.id.display_date_addTask);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
         displayInputtedDate.setText( dateFormat.format(currentDate) );
+
+        TextView displayInputtedTime = (TextView) findViewById(R.id.display_time_addTask);
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
         displayInputtedTime.setText( hourFormat.format(currentDate) );
     }
 
@@ -59,20 +64,55 @@ public class AddTaskActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.menu_add_task, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch ( item.getItemId() ) {
+            case R.id.action_done:
+                Intent returnTask = new Intent();
+
+                EditText title = (EditText) findViewById(R.id.input_title_addTask);
+                String taskTitle = title.getText().toString();
+
+                Spinner typeList = (Spinner) findViewById(R.id.list_type_addTask);
+                int taskType = typeList.getSelectedItemPosition();
+
+                TextView date = (TextView) findViewById(R.id.display_date_addTask);
+                String taskDate = date.getText().toString();
+
+                TextView time = (TextView) findViewById(R.id.display_time_addTask);
+                String taskTime = time.getText().toString();
+
+                TextView duration = (TextView) findViewById(R.id.display_duration_addTask);
+                String taskDuration = duration.getText().toString();
+
+                EditText description = (EditText) findViewById(R.id.input_description_addTask);
+                String taskDescription = description.getText().toString();
+
+                SeekBar progress = (SeekBar) findViewById(R.id.progressBar_addTask);
+                int taskProgress = progress.getProgress();
+
+                if (title.length() == 0) {
+                    Toast.makeText(this, R.string.emptyTitle_messageError, Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Task newTask = new Task(0, taskTitle, taskType, taskDate, taskTime, taskDuration, taskDescription, taskProgress);
+                    returnTask.putExtra("addedTask", newTask);
+
+                    setResult(RESULT_OK, returnTask);
+                    finish();
+                }
+                break;
+
+            case R.id.action_cancel:
+                setResult(RESULT_CANCELED);
+                finish();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -115,4 +155,5 @@ public class AddTaskActivity extends ActionBarActivity {
 
         return ret;
     }
+
 }
