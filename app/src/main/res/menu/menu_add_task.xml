@@ -13,6 +13,6 @@
         android:id="@+id/action_cancel"
         android:title="@string/text_action_cancel"
         android:icon="@drawable/ic_launcher"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always|withText"/>
 
 </menu>
