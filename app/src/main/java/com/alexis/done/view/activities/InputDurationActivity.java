@@ -1,18 +1,16 @@
 package com.alexis.done.view.activities;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
 import com.alexis.done.R;
+import com.alexis.done.controller.ButtonsListener;
 
-public class InputDurationActivity extends ActionBarActivity implements OnClickListener {
+public class InputDurationActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +26,14 @@ public class InputDurationActivity extends ActionBarActivity implements OnClickL
         inputMin.setMaxValue(59);
 
         Button select = (Button) findViewById(R.id.button_select_inputDuration);
-        select.setOnClickListener(this);
+        select.setOnClickListener( ButtonsListener.getInstance() );
+
+        getSupportActionBar().hide();
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_input_duration, menu);
         return true;
     }
 
@@ -52,18 +50,5 @@ public class InputDurationActivity extends ActionBarActivity implements OnClickL
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View v) {
-        NumberPicker inputHour = (NumberPicker) findViewById(R.id.input_h_inputDuration);
-        NumberPicker inputMin = (NumberPicker) findViewById(R.id.input_m_inputDuration);
-        Intent returnDuration = new Intent();
-
-        returnDuration.putExtra( "durationHour", inputHour.getValue() );
-        returnDuration.putExtra( "durationMin", inputMin.getValue() );
-        setResult(RESULT_OK, returnDuration);
-
-        finish();
     }
 }

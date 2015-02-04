@@ -1,18 +1,15 @@
 package com.alexis.done.view.activities;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.DatePicker;
 
 import com.alexis.done.R;
+import com.alexis.done.controller.ButtonsListener;
 
-public class InputDateActivity extends ActionBarActivity implements OnClickListener {
+public class InputDateActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +17,14 @@ public class InputDateActivity extends ActionBarActivity implements OnClickListe
         setContentView(R.layout.activity_input_date);
 
         Button select = (Button) findViewById(R.id.button_select_inputDate);
-        select.setOnClickListener(this);
+        select.setOnClickListener( ButtonsListener.getInstance() );
+
+        getSupportActionBar().hide();
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_input_date, menu);
         return true;
     }
 
@@ -44,18 +41,5 @@ public class InputDateActivity extends ActionBarActivity implements OnClickListe
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View v) {
-        DatePicker inputDate = (DatePicker) findViewById(R.id.datePicker_inputDate);
-        Intent returnDate = new Intent();
-
-        returnDate.putExtra( "dateDay", inputDate.getDayOfMonth() );
-        returnDate.putExtra( "dateMonth", inputDate.getMonth() + 1 );
-        returnDate.putExtra( "dateYear", inputDate.getYear() );
-        setResult(RESULT_OK, returnDate);
-
-        finish();
     }
 }

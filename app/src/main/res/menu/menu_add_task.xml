@@ -1,7 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.alexis.done.view.activities.AddTaskActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    tools:context=".AddTaskActivity">
+
+    <item
+        android:id="@+id/action_done"
+        android:title="@string/text_action_done"
+        android:icon="@drawable/ic_launcher"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_cancel"
+        android:title="@string/text_action_cancel"
+        android:icon="@drawable/ic_launcher"
+        app:showAsAction="ifRoom"/>
+
 </menu>

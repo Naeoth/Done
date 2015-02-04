@@ -1,5 +1,4 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView_addTast"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -21,7 +20,6 @@
 
         <TextView
             android:id="@+id/title_addTask"
-            android:text="@string/title_view_add_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -226,8 +224,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_description_addTask"
             android:layout_marginTop="@dimen/space_between_field"
-            android:background="@drawable/rounded_corner"
-            >
+            android:background="@drawable/rounded_corner" >
 
             <TextView
                 android:id="@+id/percent_addTask"

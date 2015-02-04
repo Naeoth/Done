@@ -5,51 +5,56 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.alexis.done.R;
+import com.alexis.done.controller.ButtonsListener;
+import com.alexis.done.controller.SeekBarsListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddTaskActivity extends ActionBarActivity implements OnClickListener, OnSeekBarChangeListener {
+public class AddTaskActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+        initDefaultDisplay();
+        initControllers();
+    }
+
+    private void initDefaultDisplay() {
+        TextView displayTitleView = (TextView) findViewById(R.id.title_addTask);
+        displayTitleView.setText(R.string.title_view_add_task);
+
         TextView displayInputtedDate = (TextView) findViewById(R.id.display_date_addTask);
         TextView displayInputtedTime = (TextView) findViewById(R.id.display_time_addTask);
 
         Date currentDate = new Date();
-
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
-
-        displayInputtedDate.setText(dateFormat.format(currentDate));
+        displayInputtedDate.setText( dateFormat.format(currentDate) );
         displayInputtedTime.setText( hourFormat.format(currentDate) );
-
-        Button inputDate = (Button) findViewById(R.id.button_input_date_addTask);
-        inputDate.setOnClickListener(this);
-
-        Button inputTime = (Button) findViewById(R.id.button_input_time_addTask);
-        inputTime.setOnClickListener(this);
-
-        Button inputDuration = (Button) findViewById(R.id.button_input_duration_addTask);
-        inputDuration.setOnClickListener(this);
-
-        SeekBar progressBar = (SeekBar) findViewById(R.id.progressBar_addTask);
-        progressBar.setOnSeekBarChangeListener(this);
     }
 
+    private void initControllers() {
+        Button inputDate = (Button) findViewById(R.id.button_input_date_addTask);
+        inputDate.setOnClickListener( ButtonsListener.getInstance() );
+
+        Button inputTime = (Button) findViewById(R.id.button_input_time_addTask);
+        inputTime.setOnClickListener( ButtonsListener.getInstance() );
+
+        Button inputDuration = (Button) findViewById(R.id.button_input_duration_addTask);
+        inputDuration.setOnClickListener( ButtonsListener.getInstance() );
+
+        SeekBar progressBar = (SeekBar) findViewById(R.id.progressBar_addTask);
+        progressBar.setOnSeekBarChangeListener(SeekBarsListener.getInstance() );
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,22 +76,6 @@ public class AddTaskActivity extends ActionBarActivity implements OnClickListene
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.button_input_date_addTask) {
-            Intent dateInputActivity = new Intent(this, InputDateActivity.class);
-            startActivityForResult(dateInputActivity, 1);
-        }
-        else if (v.getId() == R.id.button_input_time_addTask) {
-            Intent timeInputActivity = new Intent(this, InputTimeActivity.class);
-            startActivityForResult(timeInputActivity, 2);
-        }
-        else if (v.getId() == R.id.button_input_duration_addTask) {
-            Intent durationInputActivity = new Intent(this, InputDurationActivity.class);
-            startActivityForResult(durationInputActivity, 3);
-        }
     }
 
     @Override
@@ -125,21 +114,5 @@ public class AddTaskActivity extends ActionBarActivity implements OnClickListene
         }
 
         return ret;
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        TextView displayProgress = (TextView) findViewById(R.id.value_progressBar_addTask);
-        displayProgress.setText( String.valueOf(progress) + "%" );
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
     }
 }

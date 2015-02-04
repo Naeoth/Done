@@ -1,18 +1,16 @@
 package com.alexis.done.view.activities;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TimePicker;
 
 import com.alexis.done.R;
+import com.alexis.done.controller.ButtonsListener;
 
-public class InputTimeActivity extends ActionBarActivity implements OnClickListener {
+public class InputTimeActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +21,14 @@ public class InputTimeActivity extends ActionBarActivity implements OnClickListe
         inputTime.setIs24HourView(true);
 
         Button select = (Button) findViewById(R.id.button_select_inputTime);
-        select.setOnClickListener(this);
+        select.setOnClickListener( ButtonsListener.getInstance() );
+
+        getSupportActionBar().hide();
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_input_time, menu);
         return true;
     }
 
@@ -47,17 +45,5 @@ public class InputTimeActivity extends ActionBarActivity implements OnClickListe
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View v) {
-        TimePicker inputTime = (TimePicker) findViewById(R.id.timePicker_inputTime);
-        Intent returnTime = new Intent();
-
-        returnTime.putExtra( "timeHour", inputTime.getCurrentHour() );
-        returnTime.putExtra( "timeMin", inputTime.getCurrentMinute() );
-        setResult(RESULT_OK, returnTime);
-
-        finish();
     }
 }
