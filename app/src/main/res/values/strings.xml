@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">Done</string>
+    <string name="text_action_add">Ajouter une tâche</string>
 
     <string name="text_action_done">Valider</string>
     <string name="text_action_cancel">Annuler</string>
@@ -24,6 +25,8 @@
     <string name="hint_input_description_view_add_task">Entrer la description de la tâche</string>
     <string name="percent_view_add_task">% réalisé</string>
     <string name="default_value_progressBar_view_add_task">0%</string>
+    <string name="url_view_add_task">Asssocier une URL</string>
+    <string name="hint_input_url_view_add_task">Entrer une URL</string>
     <string name="emptyTitle_messageError">Veuillez entrer un nom de tâche</string>
 
     <string name="button_select_view">Sélectionner</string>
@@ -32,5 +35,6 @@
     <string name="m_view_input_duration">min</string>
 
     <string name="title_view_update_task">Modifier une tâche</string>
+    <string name="title_view_list_task">Liste des tâches</string>
 
 </resources>

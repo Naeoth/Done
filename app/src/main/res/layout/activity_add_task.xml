@@ -250,7 +250,7 @@
                 <TextView
                     android:id="@+id/value_progressBar_addTask"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:text="@string/default_value_progressBar_view_add_task" />
@@ -264,7 +264,43 @@
                     android:paddingStart="11dp"
                     android:paddingEnd="50dp"
                     android:layout_marginBottom="10dp"/>
+
             </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_url_addTask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_percent_addTask"
+            android:layout_marginTop="@dimen/space_between_field"
+            android:background="@drawable/rounded_corner">
+
+            <TextView
+                android:id="@+id/url_addTask"
+                android:text="@string/url_view_add_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+            <View
+                android:id="@+id/line_url_addTask"
+                android:layout_height="1dp"
+                android:background="#909090"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/url_addTask"/>
+
+            <EditText
+                android:id="@+id/input_url_addTask"
+                android:hint="@string/hint_input_url_view_add_task"
+                android:background="@drawable/edit_text_design"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line_url_addTask"
+                android:singleLine="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginTop="5dp"/>
 
         </RelativeLayout>
 
