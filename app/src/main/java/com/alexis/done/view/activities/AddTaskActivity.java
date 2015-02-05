@@ -20,8 +20,11 @@ import com.alexis.done.model.Task;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 public class AddTaskActivity extends ActionBarActivity {
+
+    private static final String URL_REGEX = "(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,12 +100,18 @@ public class AddTaskActivity extends ActionBarActivity {
                 SeekBar progress = (SeekBar) findViewById(R.id.progressBar_addTask);
                 int taskProgress = progress.getProgress();
 
+                EditText url = (EditText) findViewById(R.id.input_url_addTask);
+                String taskUrl = url.getText().toString();
+
                 if (title.length() == 0) {
                     Toast.makeText(this, R.string.emptyTitle_messageError, Toast.LENGTH_LONG).show();
                 }
+                else if ( !Pattern.matches(URL_REGEX, taskUrl) ) {
+                    Toast.makeText(this, R.string.wrongUrl_messageError, Toast.LENGTH_LONG).show();
+                }
                 else {
-                    Task newTask = new Task(0, taskTitle, taskType, taskDate, taskTime, taskDuration, taskDescription, taskProgress);
-                    returnTask.putExtra("addedTask", newTask);
+                    Task newTask = new Task(0, taskTitle, taskType, taskDate, taskTime, taskDuration, taskDescription, taskProgress, taskUrl);
+                    returnTask.putExtra("taskToAdd", newTask);
 
                     setResult(RESULT_OK, returnTask);
                     finish();
@@ -115,7 +124,7 @@ public class AddTaskActivity extends ActionBarActivity {
                 break;
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override

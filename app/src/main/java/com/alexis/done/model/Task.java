@@ -11,12 +11,17 @@ public class Task implements Parcelable {
 
     // ---------- ATTRIBUTES
     private int id, type, progress;
-    private String title, date, time, duration, description;
+    private String title;
+    private String date;
+    private String time;
+    private String duration;
+    private String description;
+    private String url;
 
 
     // ---------- CONSTRUCTOR
 
-    public Task(int id, String title, int type, String date, String time, String duration, String description, int progress) {
+    public Task(int id, String title, int type, String date, String time, String duration, String description, int progress, String url) {
         this.id = id;
         this.title = title;
         this.type = type;
@@ -25,16 +30,18 @@ public class Task implements Parcelable {
         this.duration = duration;
         this.description = description;
         this.progress = progress;
+        this.url = url;
     }
 
     private Task(Parcel in) {
-        this.title = in.readString();
-        this.type = in.readInt();
-        this.date = in.readString();
-        this.time = in.readString();
-        this.duration = in.readString();
-        this.description = in.readString();
-        this.progress = in.readInt();
+        title = in.readString();
+        type = in.readInt();
+        date = in.readString();
+        time = in.readString();
+        duration = in.readString();
+        description = in.readString();
+        progress = in.readInt();
+        url = in.readString();
     }
 
     // ---------- METHODS
@@ -105,6 +112,14 @@ public class Task implements Parcelable {
         this.progress = progress;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -119,6 +134,7 @@ public class Task implements Parcelable {
         dest.writeString(duration);
         dest.writeString(description);
         dest.writeInt(progress);
+        dest.writeString(url);
     }
 
     public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {

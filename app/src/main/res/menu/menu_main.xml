@@ -6,7 +6,7 @@
     <item
         android:id="@+id/action_add"
         android:title="@string/text_action_add"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_edit"
         app:showAsAction="ifRoom|withText"/>
 
     <item

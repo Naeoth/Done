@@ -3,19 +3,20 @@
 
     <string name="app_name">Done</string>
     <string name="text_action_add">Ajouter une tâche</string>
-
     <string name="text_action_done">Valider</string>
     <string name="text_action_cancel">Annuler</string>
     <string name="title_view_add_task">Ajouter une tâche</string>
     <string name="name_view_add_task">Titre</string>
     <string name="hint_input_title_view_addTask">Entrer le titre de la tâche</string>
     <string name="type_view_add_task">Type</string>
+
     <string-array name="list_tasks_type">
         <item>Maison</item>
         <item>Travail</item>
         <item>Châlet</item>
         <item>IUT</item>
     </string-array>
+
     <string name="date_view_add_task">Date, heure et temps estimé</string>
     <string name="button_date_view_add_task">Modifier la date</string>
     <string name="button_time_view_add_task">Modifier l\'heure</string>
@@ -28,6 +29,7 @@
     <string name="url_view_add_task">Asssocier une URL</string>
     <string name="hint_input_url_view_add_task">Entrer une URL</string>
     <string name="emptyTitle_messageError">Veuillez entrer un nom de tâche</string>
+    <string name="wrongUrl_messageError">Veuillez entrer une URL valide\r\n(http://www.example.fr)</string>
 
     <string name="button_select_view">Sélectionner</string>
     <string name="title_view_input_duration">Temps estimé</string>
@@ -35,6 +37,12 @@
     <string name="m_view_input_duration">min</string>
 
     <string name="title_view_update_task">Modifier une tâche</string>
+
+    <string name="title_view_display_task">Afficher une tâche</string>
+    <string name="hint_description_view_display_task">Aucune description</string>
+    <string name="hint_url_view_display_task">Aucune URL</string>
+
     <string name="title_view_list_task">Liste des tâches</string>
+
 
 </resources>

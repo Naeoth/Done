@@ -25,6 +25,7 @@ public class Tasks extends SQLiteOpenHelper {
     public static final String TASKS_DURATION = "duration";
     public static final String TASKS_DESCRIPTION = "description";
     public static final String TASKS_PROGRESS = "progress";
+    public static final String TASKS_URL = "url";
 
 
     // ---------- TABLE CREATION
@@ -32,11 +33,12 @@ public class Tasks extends SQLiteOpenHelper {
                                 + TASKS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                                 + TASKS_TITLE + " TEXT NOT NULL,"
                                 + TASKS_TYPE + " INTEGER NOT NULL,"
-                                + TASKS_DATE + " TEXT DEFAULT 'No date',"
-                                + TASKS_TIME + " TEXT DEFAULT 'No time',"
-                                + TASKS_DURATION + " TEXT DEFAULT 'No duration',"
-                                + TASKS_DESCRIPTION + " TEXT DEFAULT 'No description',"
-                                + TASKS_PROGRESS + " INTEGER DEFAULT '0',"
+                                + TASKS_DATE + " TEXT,"
+                                + TASKS_TIME + " TEXT,"
+                                + TASKS_DURATION + " TEXT DEFAULT,"
+                                + TASKS_DESCRIPTION + " TEXT DEFAULT,"
+                                + TASKS_PROGRESS + " INTEGER,"
+                                + TASKS_URL + " TEXT"
                                 + ");";
 
 

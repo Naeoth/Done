@@ -12,21 +12,12 @@ import com.alexis.done.model.Task;
 public class UpdateTaskActivity extends AddTaskActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_task);
-
-        initControllers();
-        initDefaultDisplay();
-    }
-
-    @Override
     protected void initDefaultDisplay() {
         TextView displayTitleView = (TextView) findViewById(R.id.title_view_addTask);
         displayTitleView.setText(R.string.title_view_update_task);
 
         Bundle bundle = getIntent().getExtras();
-        Task currentTask = bundle.getParcelable("task");
+        Task currentTask = bundle.getParcelable("aTask");
 
         EditText title = (EditText) findViewById(R.id.input_title_addTask);
         title.setText( currentTask.getTitle() );
@@ -44,9 +35,17 @@ public class UpdateTaskActivity extends AddTaskActivity {
         duration.setText( currentTask.getDuration() );
 
         EditText description = (EditText) findViewById(R.id.input_description_addTask);
+        description.setHint("");
         description.setText( currentTask.getDescription() );
 
         SeekBar progress = (SeekBar) findViewById(R.id.progressBar_addTask);
         progress.setProgress( currentTask.getProgress() );
+
+        TextView progressValue = (TextView) findViewById(R.id.value_progressBar_addTask);
+        progressValue.setText( currentTask.getProgress() + "%" );
+
+        EditText url = (EditText) findViewById(R.id.input_url_addTask);
+        url.setText( currentTask.getUrl() );
     }
+
 }

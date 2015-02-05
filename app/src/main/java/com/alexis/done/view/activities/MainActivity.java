@@ -16,6 +16,11 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent tmp = new Intent(this, DisplayTaskActivity.class);
+        Task tmp2 = new Task(0, "TEST", 2, "03/02/95", "12:00", "24h", "Anniversaire Alexis", 100, "");
+        tmp.putExtra("aTask", tmp2);
+        startActivityForResult(tmp, 1);
     }
 
 
@@ -39,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-            Task addedTask = data.getParcelableExtra("addedTask");
+            Task addedTask = data.getParcelableExtra("taskToAdd");
         }
     }
 }

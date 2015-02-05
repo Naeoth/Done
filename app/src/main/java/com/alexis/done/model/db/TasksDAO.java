@@ -37,6 +37,7 @@ public class TasksDAO {
     public static final String TASKS_DURATION = "duration";
     public static final String TASKS_DESCRIPTION = "description";
     public static final String TASKS_PROGRESS = "progress";
+    public static final String TASKS_URL = "url";
 
 
     // ---------- CONSTRUCTOR
@@ -70,9 +71,9 @@ public class TasksDAO {
         ArrayList<Task> ret = new ArrayList<Task>();
         Task tmp = null;
         int tmpId, tmpType, tmpProgress;
-        String tmpTitle, tmpDescription, tmpDuration, tmpDate, tmpTime;
+        String tmpTitle, tmpDescription, tmpDuration, tmpDate, tmpTime, tmpUrl;
 
-        Cursor c = db.query(TASKS, new String[] {TASKS_ID, TASKS_TITLE, TASKS_TYPE, TASKS_DATE, TASKS_TIME, TASKS_DURATION, TASKS_DESCRIPTION, TASKS_PROGRESS}, null, null, null, null, null);
+        Cursor c = db.query(TASKS, new String[] {TASKS_ID, TASKS_TITLE, TASKS_TYPE, TASKS_DATE, TASKS_TIME, TASKS_DURATION, TASKS_DESCRIPTION, TASKS_PROGRESS, TASKS_URL}, null, null, null, null, null);
         while(c.moveToNext()){
 
             tmpId = c.getInt(0);
@@ -83,8 +84,9 @@ public class TasksDAO {
             tmpDuration = c.getString(5);
             tmpDescription = c.getString(6);
             tmpProgress = c.getInt(7);
+            tmpUrl = c.getString(8);
 
-            tmp = new Task(tmpId, tmpTitle, tmpType, tmpDate, tmpTime, tmpDuration, tmpDescription, tmpProgress);
+            tmp = new Task(tmpId, tmpTitle, tmpType, tmpDate, tmpTime, tmpDuration, tmpDescription, tmpProgress, tmpUrl);
             ret.add(tmp);
         }
         c.close();
@@ -106,6 +108,7 @@ public class TasksDAO {
             values.put(TASKS_DURATION, t.getDuration());
             values.put(TASKS_DESCRIPTION, t.getDescription());
             values.put(TASKS_PROGRESS, t.getProgress());
+            values.put(TASKS_URL, t.getUrl());
 
             ret = db.insert(TASKS, null, values);
 
