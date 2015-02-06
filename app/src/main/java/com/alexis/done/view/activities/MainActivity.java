@@ -18,10 +18,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent tmp = new Intent(this, DisplayTaskActivity.class);
-        Task tmp2 = new Task(0, "TEST", 2, "03/02/95", "12:00", "24h", "Anniversaire Alexis", 100, "http://example.fr");
+        /*Intent tmp = new Intent(this, DisplayTaskActivity.class);
+        Task tmp2 = new Task(0, "TEST", 2, "03/02/95", "12:00", "24h", "Anniversaire Alexis", 100, "http://www.iu-vannes.fr/");
         tmp.putExtra("aTask", tmp2);
-        startActivity(tmp);
+        startActivity(tmp);*/
     }
 
 

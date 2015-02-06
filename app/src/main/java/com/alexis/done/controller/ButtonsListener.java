@@ -8,7 +8,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.alexis.done.R;
 import com.alexis.done.view.activities.InputDateActivity;
@@ -85,12 +84,11 @@ public class ButtonsListener implements OnClickListener {
                 currentActivity.finish();
                 break;
 
-            case R.id.input_url_addTask:
-                Intent webviewActivity = new Intent(currentActivity, WebViewActivity.class);
+            case R.id.button_webView_url_addTask:
+                Intent webViewActivity = new Intent(currentActivity, WebViewActivity.class);
                 EditText inputUrl = (EditText) currentActivity.findViewById(R.id.input_url_addTask);
-                webviewActivity.putExtra( "url", inputUrl.getText().toString() );
-                currentActivity.startActivity(webviewActivity);
-                Toast.makeText(currentActivity, "OK", Toast.LENGTH_LONG).show();
+                webViewActivity.putExtra( "url", inputUrl.getText().toString() );
+                currentActivity.startActivity(webViewActivity);
                 break;
         }
     }

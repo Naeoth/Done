@@ -24,6 +24,9 @@ public class WebViewActivity extends ActionBarActivity {
         params.setJavaScriptEnabled(true);
         params.setBuiltInZoomControls(true);
         webview.setWebViewClient( new MyWebViewClient() );
+
+        Bundle url = getIntent().getExtras();
+        webview.loadUrl( url.getString("url") );
     }
 
 

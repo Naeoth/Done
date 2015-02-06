@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alexis.done.R;
 import com.alexis.done.model.Task;
@@ -101,8 +100,7 @@ public class DisplayTaskActivity extends UpdateTaskActivity {
         if (resultCode == RESULT_OK) {
             currentTask = data.getParcelableExtra("returnedTask");
             refreshView(currentTask);
-
-            Toast.makeText(this, currentTask.getTitle(), Toast.LENGTH_LONG).show();
+            // Code a compléter
         }
     }
 

@@ -1,7 +1,6 @@
 package com.alexis.done.view.activities;
 
 import android.os.Bundle;
-import android.text.util.Linkify;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,7 +49,6 @@ public class UpdateTaskActivity extends AddTaskActivity {
 
         EditText url = (EditText) findViewById(R.id.input_url_addTask);
         url.setText( currentTask.getUrl() );
-        Linkify.addLinks(url, Linkify.WEB_URLS);
     }
 
 }

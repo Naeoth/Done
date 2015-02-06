@@ -3,10 +3,6 @@ package com.alexis.done.view.activities;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,23 +46,6 @@ public class AddTaskActivity extends ActionBarActivity {
         TextView displayInputtedTime = (TextView) findViewById(R.id.display_time_addTask);
         SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
         displayInputtedTime.setText( hourFormat.format(currentDate) );
-
-        TextView inputUrl = (TextView) findViewById(R.id.input_url_addTask);
-        inputUrl.setAutoLinkMask(Linkify.WEB_URLS);
-        inputUrl.setMovementMethod( LinkMovementMethod.getInstance() );
-        inputUrl.addTextChangedListener( new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Linkify.addLinks(s, Linkify.WEB_URLS);
-            }
-        });
-        //inputUrl.
     }
 
     protected void initControllers() {
@@ -81,6 +60,9 @@ public class AddTaskActivity extends ActionBarActivity {
 
         SeekBar progressBar = (SeekBar) findViewById(R.id.progressBar_addTask);
         progressBar.setOnSeekBarChangeListener(SeekBarsListener.getInstance() );
+
+        Button runWebView = (Button) findViewById(R.id.button_webView_url_addTask);
+        runWebView.setOnClickListener( ButtonsListener.getInstance() );
     }
 
     @Override
