@@ -6,12 +6,43 @@
     <item
         android:id="@+id/action_add"
         android:title="@string/text_action_add"
-        android:icon="@drawable/ic_edit"
+        android:icon="@drawable/ic_new"
         app:showAsAction="ifRoom|withText"/>
 
     <item
-        android:id="@+id/action_test"
-        android:title="@string/text_action_add"
+        android:id="@+id/action_all"
+        android:title="@string/text_action_all_sort"
         app:showAsAction="never|withText"/>
+
+    <item
+        android:id="@+id/action_date_sort"
+        android:title="@string/text_action_date_sort"
+        app:showAsAction="never|withText"/>
+
+    <item
+        android:id="@+id/action_type_sort"
+        android:title="@string/text_action_type_sort"
+        app:showAsAction="never|withText">
+
+        <menu>
+            <item android:id="@+id/action_type_0_sort"
+                android:title="@string/type0"
+                app:showAsAction="never|withText"/>
+
+            <item android:id="@+id/action_type_1_sort"
+                android:title="@string/type1"
+                app:showAsAction="never|withText"/>
+
+            <item android:id="@+id/action_type_2_sort"
+                android:title="@string/type2"
+                app:showAsAction="never|withText"/>
+
+            <item android:id="@+id/action_type_3_sort"
+                android:title="@string/type3"
+                app:showAsAction="never|withText"/>
+
+        </menu>
+
+    </item>
 
 </menu>

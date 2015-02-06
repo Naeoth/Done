@@ -1,5 +1,6 @@
 package com.alexis.done.view.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,21 +12,29 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alexis.done.R;
+import com.alexis.done.model.Task;
 
 public class DisplayTaskActivity extends UpdateTaskActivity {
+
+    private Task currentTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Bundle bundle = getIntent().getExtras();
+        currentTask = bundle.getParcelable("aTask");
+
         initDefaultDisplay();
     }
 
     protected void initDefaultDisplay() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         super.initDefaultDisplay();
 
         TextView displayTitleView = (TextView) findViewById(R.id.title_view_addTask);
@@ -72,8 +81,29 @@ public class DisplayTaskActivity extends UpdateTaskActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
+
+        if (item.getItemId() == R.id.action_update) {
+            Intent updateTask = new Intent(this, UpdateTaskActivity.class);
+            updateTask.putExtra("aTask", currentTask);
+            startActivityForResult(updateTask, 1);
+        }
+        else {
+            finish();
+        }
 
         return true;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            currentTask = data.getParcelableExtra("returnedTask");
+            refreshView(currentTask);
+
+            Toast.makeText(this, currentTask.getTitle(), Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

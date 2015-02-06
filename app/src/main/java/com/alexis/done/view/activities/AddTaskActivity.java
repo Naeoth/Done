@@ -3,6 +3,11 @@ package com.alexis.done.view.activities;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -20,11 +25,8 @@ import com.alexis.done.model.Task;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.regex.Pattern;
 
 public class AddTaskActivity extends ActionBarActivity {
-
-    private static final String URL_REGEX = "(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,23 @@ public class AddTaskActivity extends ActionBarActivity {
         TextView displayInputtedTime = (TextView) findViewById(R.id.display_time_addTask);
         SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
         displayInputtedTime.setText( hourFormat.format(currentDate) );
+
+        TextView inputUrl = (TextView) findViewById(R.id.input_url_addTask);
+        inputUrl.setAutoLinkMask(Linkify.WEB_URLS);
+        inputUrl.setMovementMethod( LinkMovementMethod.getInstance() );
+        inputUrl.addTextChangedListener( new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Linkify.addLinks(s, Linkify.WEB_URLS);
+            }
+        });
+        //inputUrl.
     }
 
     protected void initControllers() {
@@ -77,8 +96,6 @@ public class AddTaskActivity extends ActionBarActivity {
 
         switch ( item.getItemId() ) {
             case R.id.action_done:
-                Intent returnTask = new Intent();
-
                 EditText title = (EditText) findViewById(R.id.input_title_addTask);
                 String taskTitle = title.getText().toString();
 
@@ -106,13 +123,13 @@ public class AddTaskActivity extends ActionBarActivity {
                 if (title.length() == 0) {
                     Toast.makeText(this, R.string.emptyTitle_messageError, Toast.LENGTH_LONG).show();
                 }
-                else if ( !Pattern.matches(URL_REGEX, taskUrl) ) {
+                else if ( !Patterns.WEB_URL.matcher(taskUrl).matches() && !taskUrl.equals("") ) {
                     Toast.makeText(this, R.string.wrongUrl_messageError, Toast.LENGTH_LONG).show();
                 }
                 else {
+                    Intent returnTask = new Intent();
                     Task newTask = new Task(0, taskTitle, taskType, taskDate, taskTime, taskDuration, taskDescription, taskProgress, taskUrl);
-                    returnTask.putExtra("taskToAdd", newTask);
-
+                    returnTask.putExtra("returnedTask", newTask);
                     setResult(RESULT_OK, returnTask);
                     finish();
                 }

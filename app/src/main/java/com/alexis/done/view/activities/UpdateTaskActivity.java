@@ -1,6 +1,7 @@
 package com.alexis.done.view.activities;
 
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,6 +20,10 @@ public class UpdateTaskActivity extends AddTaskActivity {
         Bundle bundle = getIntent().getExtras();
         Task currentTask = bundle.getParcelable("aTask");
 
+        refreshView(currentTask);
+    }
+
+    protected void refreshView(Task currentTask) {
         EditText title = (EditText) findViewById(R.id.input_title_addTask);
         title.setText( currentTask.getTitle() );
 
@@ -35,7 +40,6 @@ public class UpdateTaskActivity extends AddTaskActivity {
         duration.setText( currentTask.getDuration() );
 
         EditText description = (EditText) findViewById(R.id.input_description_addTask);
-        description.setHint("");
         description.setText( currentTask.getDescription() );
 
         SeekBar progress = (SeekBar) findViewById(R.id.progressBar_addTask);
@@ -46,6 +50,7 @@ public class UpdateTaskActivity extends AddTaskActivity {
 
         EditText url = (EditText) findViewById(R.id.input_url_addTask);
         url.setText( currentTask.getUrl() );
+        Linkify.addLinks(url, Linkify.WEB_URLS);
     }
 
 }

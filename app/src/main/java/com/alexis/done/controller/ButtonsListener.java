@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.alexis.done.R;
 import com.alexis.done.view.activities.InputDateActivity;
 import com.alexis.done.view.activities.InputDurationActivity;
 import com.alexis.done.view.activities.InputTimeActivity;
+import com.alexis.done.view.activities.WebViewActivity;
 
 /**
  * Created by alexis on 02/02/15.
@@ -80,6 +83,14 @@ public class ButtonsListener implements OnClickListener {
                 currentActivity.setResult(Activity.RESULT_OK, returnDuration);
 
                 currentActivity.finish();
+                break;
+
+            case R.id.input_url_addTask:
+                Intent webviewActivity = new Intent(currentActivity, WebViewActivity.class);
+                EditText inputUrl = (EditText) currentActivity.findViewById(R.id.input_url_addTask);
+                webviewActivity.putExtra( "url", inputUrl.getText().toString() );
+                currentActivity.startActivity(webviewActivity);
+                Toast.makeText(currentActivity, "OK", Toast.LENGTH_LONG).show();
                 break;
         }
     }

@@ -294,12 +294,13 @@
             <EditText
                 android:id="@+id/input_url_addTask"
                 android:inputType="textUri"
-                android:hint="@string/hint_input_title_view_addTask"
+                android:hint="@string/hint_input_url_view_add_task"
                 android:background="@drawable/edit_text_design"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line_url_addTask"
                 android:singleLine="true"
+                android:linksClickable="true"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_marginTop="5dp"/>
 
