@@ -32,11 +32,28 @@
         android:layout_marginTop="3dp"/>
 
     <ListView
-        android:id="@+id/layout_title_listTask"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/list_listTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/state_filter_listTask"
         android:layout_below="@+id/line2_title_listTask"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/space_between_field"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/rounded_corner"/>
+
+    <Spinner
+        android:id="@+id/state_filter_listTask"
+        android:entries="@array/state_filter_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+    <Spinner
+        android:id="@+id/type_filter_listTask"
+        android:entries="@array/type_filter_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

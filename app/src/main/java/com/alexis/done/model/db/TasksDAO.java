@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
 import com.alexis.done.model.Task;
 
@@ -18,17 +17,16 @@ public class TasksDAO {
 
     // ---------- ATTRIBUTES
 
-    protected final static int VERSION = 1;
-    protected final static String NOM = "done.db";
-    protected SQLiteDatabase db;
-    protected Tasks handler;
-    private Context context;
+    private final static int VERSION = 1;
+    private final static String NOM = "done.db";
+    private SQLiteDatabase db;
+    private Tasks handler;
 
     // ---------- TABLE
 
     // ----- TASKS
 
-    public static final String TASKS = "profil";
+    public static final String TASKS = "tasks";
     public static final String TASKS_ID = "id";
     public static final String TASKS_TITLE = "title";
     public static final String TASKS_TYPE = "type";
@@ -43,9 +41,7 @@ public class TasksDAO {
     // ---------- CONSTRUCTOR
 
     public TasksDAO(Context context) {
-
         this.handler = new Tasks(context, NOM, null, VERSION);
-        this.context = context;
     }
 
 
@@ -60,21 +56,39 @@ public class TasksDAO {
         db.close();
     } // ---------------------------------------------------------- close()
 
-    public SQLiteDatabase getDb() {
-        return db;
-    } // ---------------------------------------------------------- getDb()
-
 
     // ----- PROFILS
-
-    public ArrayList<Task> getTasks(){
+    public ArrayList<Task> getTasks(int state, int type) {
         ArrayList<Task> ret = new ArrayList<Task>();
-        Task tmp = null;
         int tmpId, tmpType, tmpProgress;
         String tmpTitle, tmpDescription, tmpDuration, tmpDate, tmpTime, tmpUrl;
+        int min = 0;
+        int max = 100;
+        String condType = "";
 
-        Cursor c = db.query(TASKS, new String[] {TASKS_ID, TASKS_TITLE, TASKS_TYPE, TASKS_DATE, TASKS_TIME, TASKS_DURATION, TASKS_DESCRIPTION, TASKS_PROGRESS, TASKS_URL}, null, null, null, null, null);
-        while(c.moveToNext()){
+        switch (state) {
+            case 1:
+                min = 1;
+                max = 99;
+                break;
+
+            case 2:
+                min = 0;
+                max = 0;
+                break;
+
+            case 3:
+                min = 100;
+                max = 100;
+                break;
+        }
+
+        if (type != 0) {
+            condType = TASKS_TYPE + " = " + (type - 1)  +" AND ";
+        }
+
+        Cursor c = db.query(TASKS, new String[] {TASKS_ID, TASKS_TITLE, TASKS_TYPE, TASKS_DATE, TASKS_TIME, TASKS_DURATION, TASKS_DESCRIPTION, TASKS_PROGRESS, TASKS_URL}, condType + TASKS_PROGRESS + " >= " + min + " AND " + TASKS_PROGRESS + " <= " + max, null, null, null, null);
+        while ( c.moveToNext() ){
 
             tmpId = c.getInt(0);
             tmpTitle = c.getString(1);
@@ -86,7 +100,7 @@ public class TasksDAO {
             tmpProgress = c.getInt(7);
             tmpUrl = c.getString(8);
 
-            tmp = new Task(tmpId, tmpTitle, tmpType, tmpDate, tmpTime, tmpDuration, tmpDescription, tmpProgress, tmpUrl);
+            Task tmp = new Task(tmpId, tmpTitle, tmpType, tmpDate, tmpTime, tmpDuration, tmpDescription, tmpProgress, tmpUrl);
             ret.add(tmp);
         }
         c.close();
@@ -94,27 +108,44 @@ public class TasksDAO {
         return ret;
     }
 
-    public double insertTask(Task t){
+    public double insertTask(Task taskToInsert) {
         long ret = 0;
 
-        if(t !=  null){
-
+        if(taskToInsert !=  null){
             // On rentre la task dans la bdd
             ContentValues values = new ContentValues();
-            values.put(TASKS_TITLE, t.getTitle());
-            values.put(TASKS_TYPE, t.getType());
-            values.put(TASKS_DATE, t.getDate());
-            values.put(TASKS_TIME, t.getTime());
-            values.put(TASKS_DURATION, t.getDuration());
-            values.put(TASKS_DESCRIPTION, t.getDescription());
-            values.put(TASKS_PROGRESS, t.getProgress());
-            values.put(TASKS_URL, t.getUrl());
+            values.put(TASKS_TITLE, taskToInsert.getTitle());
+            values.put(TASKS_TYPE, taskToInsert.getType());
+            values.put(TASKS_DATE, taskToInsert.getDate());
+            values.put(TASKS_TIME, taskToInsert.getTime());
+            values.put(TASKS_DURATION, taskToInsert.getDuration());
+            values.put(TASKS_DESCRIPTION, taskToInsert.getDescription());
+            values.put(TASKS_PROGRESS, taskToInsert.getProgress());
+            values.put(TASKS_URL, taskToInsert.getUrl());
 
             ret = db.insert(TASKS, null, values);
-
-            Toast.makeText(context, "Nouvelle Task : " + t.getTitle(), Toast.LENGTH_LONG).show();
-
         }
+
         return ret;
+    }
+
+    public void deleteTask(Task taskToDelete) {
+        db.delete(TASKS, TASKS_ID + "=" + taskToDelete.getId(), null);
+    }
+
+    public void updateTask(Task taskToUpdate){
+
+        ContentValues values = new ContentValues();
+
+        values.put(TASKS_TITLE , taskToUpdate.getTitle());
+        values.put(TASKS_TYPE, taskToUpdate.getType());
+        values.put(TASKS_DATE, taskToUpdate.getDate());
+        values.put(TASKS_TIME, taskToUpdate.getTime());
+        values.put(TASKS_DURATION, taskToUpdate.getDuration());
+        values.put(TASKS_DESCRIPTION, taskToUpdate.getDescription());
+        values.put(TASKS_PROGRESS, taskToUpdate.getProgress());
+        values.put(TASKS_URL, taskToUpdate.getUrl());
+
+        db.update(TASKS, values, TASKS_ID + "=" +  taskToUpdate.getId(), null);
     }
 }

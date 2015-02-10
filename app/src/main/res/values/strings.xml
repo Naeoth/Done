@@ -2,28 +2,42 @@
 <resources>
 
     <string name="app_name">Done</string>
+
+    <string name="type1">Personnel</string>
+    <string name="type2">Maison</string>
+    <string name="type3">Bureau</string>
+    <string name="type4">Amis</string>
+
     <string name="text_action_add">Ajouter une tâche</string>
     <string name="text_action_all_sort">Afficher toutes les tâches</string>
-    <string name="text_action_date_sort">Trier par date</string>
-    <string name="text_action_type_sort">Trier par type</string>
+    <string-array name="state_filter_menu">
+        <item>Tout</item>
+        <item >Doing</item>
+        <item >To Do</item>
+        <item >Done</item>
+    </string-array>
+    <string-array name="type_filter_menu">
+        <item>Tout</item>
+        <item>@string/type1</item>
+        <item>@string/type2</item>
+        <item>@string/type3</item>
+        <item>@string/type4</item>
+    </string-array>
+    <string name="update_action">Modifier</string>
+    <string name="delete_action">Supprimer</string>
+
     <string name="title_view_add_task">Ajouter une tâche</string>
     <string name="text_action_done">Valider</string>
     <string name="text_action_cancel">Annuler</string>
     <string name="name_view_add_task">Titre</string>
     <string name="hint_input_title_view_addTask">Entrer le titre de la tâche</string>
     <string name="type_view_add_task">Type</string>
-
     <string-array name="list_tasks_type">
-        <item>@string/type0</item>
         <item>@string/type1</item>
         <item>@string/type2</item>
         <item>@string/type3</item>
+        <item>@string/type4</item>
     </string-array>
-
-    <string name="type0">Personnel</string>
-    <string name="type1">Maison</string>
-    <string name="type2">Bureau</string>
-    <string name="type3">Amis</string>
     <string name="date_view_add_task">Date, heure et temps estimé</string>
     <string name="button_date_view_add_task">Modifier la date</string>
     <string name="button_time_view_add_task">Modifier l\'heure</string>
@@ -38,10 +52,12 @@
     <string name="button_url_view_add_task">Aperçu</string>
     <string name="emptyTitle_messageError">Veuillez entrer un nom de tâche</string>
     <string name="wrongUrl_messageError">Veuillez entrer une URL valide\r\n(http://www.example.fr)</string>
+
     <string name="button_select_view">Sélectionner</string>
     <string name="title_view_input_duration">Temps estimé</string>
     <string name="h_view_input_duration">h</string>
     <string name="m_view_input_duration">min</string>
+
     <string name="title_view_update_task">Modifier une tâche</string>
     <string name="title_view_display_task">Afficher une tâche</string>
     <string name="hint_description_view_display_task">Aucune description</string>

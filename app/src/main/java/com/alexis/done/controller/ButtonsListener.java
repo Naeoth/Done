@@ -10,6 +10,7 @@ import android.widget.NumberPicker;
 import android.widget.TimePicker;
 
 import com.alexis.done.R;
+import com.alexis.done.view.activities.MainActivity;
 import com.alexis.done.view.activities.InputDateActivity;
 import com.alexis.done.view.activities.InputDurationActivity;
 import com.alexis.done.view.activities.InputTimeActivity;
@@ -36,17 +37,17 @@ public class ButtonsListener implements OnClickListener {
         switch ( v.getId() ) {
             case R.id.button_input_date_addTask:
                 Intent dateInputActivity = new Intent(currentActivity, InputDateActivity.class);
-                currentActivity.startActivityForResult(dateInputActivity, 1);
+                currentActivity.startActivityForResult(dateInputActivity, MainActivity.INPUT_DATE_REQUEST_CODE);
                 break;
 
             case R.id.button_input_time_addTask:
                 Intent timeInputActivity = new Intent(currentActivity, InputTimeActivity.class);
-                currentActivity.startActivityForResult(timeInputActivity, 2);
+                currentActivity.startActivityForResult(timeInputActivity, MainActivity.INPUT_TIME_REQUEST_CODE);
                 break;
 
             case R.id.button_input_duration_addTask:
                 Intent durationInputActivity = new Intent(currentActivity, InputDurationActivity.class);
-                currentActivity.startActivityForResult(durationInputActivity, 3);
+                currentActivity.startActivityForResult(durationInputActivity, MainActivity.INPUT_DURATION_REQUEST_CODE);
                 break;
 
             case R.id.button_select_inputDate:

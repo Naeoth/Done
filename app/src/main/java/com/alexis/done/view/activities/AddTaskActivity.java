@@ -1,8 +1,6 @@
 package com.alexis.done.view.activities;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,33 +20,38 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddTaskActivity extends ActionBarActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_task);
-
-        initDefaultDisplay();
-        initControllers();
-    }
+public class AddTaskActivity extends DisplayTaskActivity {
 
     protected void initDefaultDisplay() {
         TextView displayTitleView = (TextView) findViewById(R.id.title_view_addTask);
-        displayTitleView.setText(R.string.title_view_add_task);
 
-        Date currentDate = new Date();
+        if ( !getIntent().hasExtra("aTask") ) {
+            currentTask = new Task(-1, "", 0, "", "", "", "", 0, "");
 
-        TextView displayInputtedDate = (TextView) findViewById(R.id.display_date_addTask);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        displayInputtedDate.setText( dateFormat.format(currentDate) );
+            displayTitleView.setText(R.string.title_view_add_task);
 
-        TextView displayInputtedTime = (TextView) findViewById(R.id.display_time_addTask);
-        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
-        displayInputtedTime.setText( hourFormat.format(currentDate) );
+            Date currentDate = new Date();
+
+            TextView displayInputtedDate = (TextView) findViewById(R.id.display_date_addTask);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            displayInputtedDate.setText( dateFormat.format(currentDate) );
+
+            TextView displayInputtedTime = (TextView) findViewById(R.id.display_time_addTask);
+            SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
+            displayInputtedTime.setText( hourFormat.format(currentDate) );
+        }
+        else {
+            currentTask = getIntent().getParcelableExtra("aTask");
+
+            displayTitleView.setText(R.string.title_view_update_task);
+
+            refreshView(currentTask);
+        }
     }
 
     protected void initControllers() {
+        super.initControllers();
+
         Button inputDate = (Button) findViewById(R.id.button_input_date_addTask);
         inputDate.setOnClickListener( ButtonsListener.getInstance() );
 
@@ -60,17 +63,12 @@ public class AddTaskActivity extends ActionBarActivity {
 
         SeekBar progressBar = (SeekBar) findViewById(R.id.progressBar_addTask);
         progressBar.setOnSeekBarChangeListener(SeekBarsListener.getInstance() );
-
-        Button runWebView = (Button) findViewById(R.id.button_webView_url_addTask);
-        runWebView.setOnClickListener( ButtonsListener.getInstance() );
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-
         getMenuInflater().inflate(R.menu.menu_add_task, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
@@ -79,25 +77,6 @@ public class AddTaskActivity extends ActionBarActivity {
         switch ( item.getItemId() ) {
             case R.id.action_done:
                 EditText title = (EditText) findViewById(R.id.input_title_addTask);
-                String taskTitle = title.getText().toString();
-
-                Spinner typeList = (Spinner) findViewById(R.id.list_type_addTask);
-                int taskType = typeList.getSelectedItemPosition();
-
-                TextView date = (TextView) findViewById(R.id.display_date_addTask);
-                String taskDate = date.getText().toString();
-
-                TextView time = (TextView) findViewById(R.id.display_time_addTask);
-                String taskTime = time.getText().toString();
-
-                TextView duration = (TextView) findViewById(R.id.display_duration_addTask);
-                String taskDuration = duration.getText().toString();
-
-                EditText description = (EditText) findViewById(R.id.input_description_addTask);
-                String taskDescription = description.getText().toString();
-
-                SeekBar progress = (SeekBar) findViewById(R.id.progressBar_addTask);
-                int taskProgress = progress.getProgress();
 
                 EditText url = (EditText) findViewById(R.id.input_url_addTask);
                 String taskUrl = url.getText().toString();
@@ -109,9 +88,30 @@ public class AddTaskActivity extends ActionBarActivity {
                     Toast.makeText(this, R.string.wrongUrl_messageError, Toast.LENGTH_LONG).show();
                 }
                 else {
+                    currentTask.setTitle( title.getText().toString() ) ;
+
+                    Spinner typeList = (Spinner) findViewById(R.id.list_type_addTask);
+                    currentTask.setType( typeList.getSelectedItemPosition() );
+
+                    TextView date = (TextView) findViewById(R.id.display_date_addTask);
+                    currentTask.setDate( date.getText().toString() );
+
+                    TextView time = (TextView) findViewById(R.id.display_time_addTask);
+                    currentTask.setTime( time.getText().toString() );
+
+                    TextView duration = (TextView) findViewById(R.id.display_duration_addTask);
+                    currentTask.setDuration( duration.getText().toString() );
+
+                    EditText description = (EditText) findViewById(R.id.input_description_addTask);
+                    currentTask.setDescription( description.getText().toString() );
+
+                    SeekBar progress = (SeekBar) findViewById(R.id.progressBar_addTask);
+                    currentTask.setProgress( progress.getProgress() );
+
+                    currentTask.setUrl(taskUrl);
+
                     Intent returnTask = new Intent();
-                    Task newTask = new Task(0, taskTitle, taskType, taskDate, taskTime, taskDuration, taskDescription, taskProgress, taskUrl);
-                    returnTask.putExtra("returnedTask", newTask);
+                    returnTask.putExtra("returnedTask", currentTask);
                     setResult(RESULT_OK, returnTask);
                     finish();
                 }
@@ -128,8 +128,6 @@ public class AddTaskActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == RESULT_OK) {
             if ( data.hasExtra("dateDay") && data.hasExtra("dateMonth") && data.hasExtra("dateYear") ) {
                 TextView displayInputtedDate = (TextView) findViewById(R.id.display_date_addTask);

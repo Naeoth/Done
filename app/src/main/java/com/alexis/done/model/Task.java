@@ -20,7 +20,6 @@ public class Task implements Parcelable {
 
 
     // ---------- CONSTRUCTOR
-
     public Task(int id, String title, int type, String date, String time, String duration, String description, int progress, String url) {
         this.id = id;
         this.title = title;
@@ -34,6 +33,7 @@ public class Task implements Parcelable {
     }
 
     private Task(Parcel in) {
+        id = in.readInt();
         title = in.readString();
         type = in.readInt();
         date = in.readString();
@@ -96,16 +96,16 @@ public class Task implements Parcelable {
         this.duration = duration;
     }
 
-    public int getProgress() {
-        return progress;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getProgress() {
+        return progress;
     }
 
     public void setProgress(int progress) {
@@ -120,6 +120,10 @@ public class Task implements Parcelable {
         this.url = url;
     }
 
+    public String toString(){
+        return this.title;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -127,6 +131,7 @@ public class Task implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(title);
         dest.writeInt(type);
         dest.writeString(date);

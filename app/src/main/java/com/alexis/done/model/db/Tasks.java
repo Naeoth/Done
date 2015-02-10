@@ -7,6 +7,7 @@ import android.util.Log;
 
 /**
  * Created by Alexis on 23/01/2015.
+ * *
  */
 public class Tasks extends SQLiteOpenHelper {
 
@@ -16,7 +17,7 @@ public class Tasks extends SQLiteOpenHelper {
     // ---------- TABLE
     // ----- PROFIL
 
-    public static final String TASKS = "Tasks";
+    public static final String TASKS = "tasks";
     public static final String TASKS_ID = "id";
     public static final String TASKS_TITLE = "title";
     public static final String TASKS_TYPE = "type";
@@ -30,16 +31,16 @@ public class Tasks extends SQLiteOpenHelper {
 
     // ---------- TABLE CREATION
     private static final String TASKS_CREATE = "CREATE TABLE " + TASKS + "("
-                                + TASKS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                                + TASKS_TITLE + " TEXT NOT NULL,"
-                                + TASKS_TYPE + " INTEGER NOT NULL,"
-                                + TASKS_DATE + " TEXT,"
-                                + TASKS_TIME + " TEXT,"
-                                + TASKS_DURATION + " TEXT DEFAULT,"
-                                + TASKS_DESCRIPTION + " TEXT DEFAULT,"
-                                + TASKS_PROGRESS + " INTEGER,"
-                                + TASKS_URL + " TEXT"
-                                + ");";
+            + TASKS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + TASKS_TITLE + " TEXT NOT NULL,"
+            + TASKS_TYPE + " INTEGER NOT NULL,"
+            + TASKS_DATE + " TEXT DEFAULT 'no date',"
+            + TASKS_TIME + " TEXT DEFAULT 'no time',"
+            + TASKS_DURATION + " TEXT DEFAULT 'no duration',"
+            + TASKS_DESCRIPTION + " TEXT DEFAULT 'no desc',"
+            + TASKS_PROGRESS + " INTEGER DEFAULT 0,"
+            + TASKS_URL + " TEXT DEFAULT 'no url'"
+            + ");";
 
 
     // ---------- CONSTRUCTOR

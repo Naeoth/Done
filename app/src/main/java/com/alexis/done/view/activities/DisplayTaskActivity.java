@@ -2,6 +2,7 @@ package com.alexis.done.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -14,27 +15,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.alexis.done.R;
+import com.alexis.done.controller.ButtonsListener;
 import com.alexis.done.model.Task;
 
-public class DisplayTaskActivity extends UpdateTaskActivity {
+public class DisplayTaskActivity extends ActionBarActivity {
 
-    private Task currentTask;
+    protected Task currentTask;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        Bundle bundle = getIntent().getExtras();
-        currentTask = bundle.getParcelable("aTask");
-
         initDefaultDisplay();
+        initControllers();
     }
 
     protected void initDefaultDisplay() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        currentTask = getIntent().getParcelableExtra("aTask");
 
-        super.initDefaultDisplay();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextView displayTitleView = (TextView) findViewById(R.id.title_view_addTask);
         displayTitleView.setText(R.string.title_view_display_task);
@@ -69,6 +68,13 @@ public class DisplayTaskActivity extends UpdateTaskActivity {
         EditText url = (EditText) findViewById(R.id.input_url_addTask);
         url.setHint(R.string.hint_url_view_display_task);
         url.setFocusableInTouchMode(false);
+
+        refreshView(currentTask);
+    }
+
+    protected void initControllers() {
+        Button runWebView = (Button) findViewById(R.id.button_webView_url_addTask);
+        runWebView.setOnClickListener( ButtonsListener.getInstance() );
     }
 
 
@@ -82,9 +88,9 @@ public class DisplayTaskActivity extends UpdateTaskActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.action_update) {
-            Intent updateTask = new Intent(this, UpdateTaskActivity.class);
+            Intent updateTask = new Intent(this, AddTaskActivity.class);
             updateTask.putExtra("aTask", currentTask);
-            startActivityForResult(updateTask, 1);
+            startActivityForResult(updateTask, MainActivity.UPDATE_REQUEST_CODE);
         }
         else {
             finish();
@@ -98,10 +104,40 @@ public class DisplayTaskActivity extends UpdateTaskActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-            currentTask = data.getParcelableExtra("returnedTask");
-            refreshView(currentTask);
-            // Code a compléter
+            Intent returnTask = new Intent();
+            returnTask.putExtra("returnedTask", data.getParcelableExtra("returnedTask") );
+            setResult(RESULT_OK, returnTask);
+            finish();
         }
+    }
+
+    protected void refreshView(Task currentTask) {
+        EditText title = (EditText) findViewById(R.id.input_title_addTask);
+        title.setText( currentTask.getTitle() );
+
+        Spinner typeList = (Spinner) findViewById(R.id.list_type_addTask);
+        typeList.setSelection( currentTask.getType() );
+
+        TextView date = (TextView) findViewById(R.id.display_date_addTask);
+        date.setText( currentTask.getDate() );
+
+        TextView time = (TextView) findViewById(R.id.display_time_addTask);
+        time.setText( currentTask.getTime() );
+
+        TextView duration = (TextView) findViewById(R.id.display_duration_addTask);
+        duration.setText( currentTask.getDuration() );
+
+        EditText description = (EditText) findViewById(R.id.input_description_addTask);
+        description.setText( currentTask.getDescription() );
+
+        SeekBar progress = (SeekBar) findViewById(R.id.progressBar_addTask);
+        progress.setProgress( currentTask.getProgress() );
+
+        TextView progressValue = (TextView) findViewById(R.id.value_progressBar_addTask);
+        progressValue.setText( currentTask.getProgress() + "%" );
+
+        EditText url = (EditText) findViewById(R.id.input_url_addTask);
+        url.setText( currentTask.getUrl() );
     }
 
 }
