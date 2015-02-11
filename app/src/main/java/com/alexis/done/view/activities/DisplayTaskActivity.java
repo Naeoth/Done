@@ -1,3 +1,9 @@
+/*
+ * Programmation Web et Mobile - M4103C/M4104C
+ *
+ * class DisplayTaskActivity.java
+ */
+
 package com.alexis.done.view.activities;
 
 import android.content.Intent;
@@ -18,10 +24,20 @@ import com.alexis.done.R;
 import com.alexis.done.controller.ButtonsListener;
 import com.alexis.done.model.Task;
 
+/**
+ * This class is the activity which displays the information of a task.
+ *
+ * @version 1.0 - 11/01/15
+ * @author BUSSENEAU Alexis - ROBIN Alexis
+ */
 public class DisplayTaskActivity extends ActionBarActivity {
 
+    /**
+     * The currentTask displayed.
+     */
     protected Task currentTask;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
@@ -31,12 +47,17 @@ public class DisplayTaskActivity extends ActionBarActivity {
     }
 
     protected void initDefaultDisplay() {
+        // Initializes the current task with the task sent by the calling activity (the main activity).
         currentTask = getIntent().getParcelableExtra("aTask");
 
+        // Displays the return button.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Changes the name of the title view.
         TextView displayTitleView = (TextView) findViewById(R.id.title_view_addTask);
         displayTitleView.setText(R.string.title_view_display_task);
+
+        // Disables the edit text and hides the buttons.
 
         EditText title = (EditText) findViewById(R.id.input_title_addTask);
         title.setFocusableInTouchMode(false);
@@ -69,9 +90,13 @@ public class DisplayTaskActivity extends ActionBarActivity {
         url.setHint(R.string.hint_url_view_display_task);
         url.setFocusableInTouchMode(false);
 
-        refreshView(currentTask);
+        // Displays the information from the task on the view.
+        refreshView();
     }
 
+    /**
+     * Initializes the controllers with the view.
+     */
     protected void initControllers() {
         Button runWebView = (Button) findViewById(R.id.button_webView_url_addTask);
         runWebView.setOnClickListener( ButtonsListener.getInstance() );
@@ -86,8 +111,8 @@ public class DisplayTaskActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (item.getItemId() == R.id.action_update) {
+            // Action add a task if selected.
             Intent updateTask = new Intent(this, AddTaskActivity.class);
             updateTask.putExtra("aTask", currentTask);
             startActivityForResult(updateTask, MainActivity.UPDATE_REQUEST_CODE);
@@ -104,6 +129,7 @@ public class DisplayTaskActivity extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
+            // Updates the list when the user updates from the display activity.
             Intent returnTask = new Intent();
             returnTask.putExtra("returnedTask", data.getParcelableExtra("returnedTask") );
             setResult(RESULT_OK, returnTask);
@@ -111,7 +137,10 @@ public class DisplayTaskActivity extends ActionBarActivity {
         }
     }
 
-    protected void refreshView(Task currentTask) {
+    /**
+     * Refreshes the view with the information from the current task.
+     */
+    protected void refreshView() {
         EditText title = (EditText) findViewById(R.id.input_title_addTask);
         title.setText( currentTask.getTitle() );
 

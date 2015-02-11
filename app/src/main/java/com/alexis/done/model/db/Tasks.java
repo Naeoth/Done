@@ -1,3 +1,9 @@
+/*
+ * Programmation Web et Mobile - M4103C/M4104C
+ *
+ * class Tasks.java
+ */
+
 package com.alexis.done.model.db;
 
 import android.content.Context;
@@ -6,16 +12,18 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * Created by Alexis on 23/01/2015.
- * *
+ * This class allows to create an SQLite internal database to store tasks.
+ * It extends SQLiteOpenHelper.
+ *
+ * @version 1.0 - 11/01/15
+ * @author BUSSENEAU Alexis - ROBIN Alexis
  */
 public class Tasks extends SQLiteOpenHelper {
 
 
-    // ---------- BASE DE DONNES
+    // ---------- BASE DE DONNEES
 
     // ---------- TABLE
-    // ----- PROFIL
 
     public static final String TASKS = "tasks";
     public static final String TASKS_ID = "id";
@@ -45,6 +53,14 @@ public class Tasks extends SQLiteOpenHelper {
 
     // ---------- CONSTRUCTOR
 
+    /**
+     * The class's constructor.
+     *
+     * @param context The context of the current Activity.
+     * @param name The name of the database.
+     * @param factory The SQLiteDatabase.CursorFactory of the database.
+     * @param version The version of the database.
+     */
     public Tasks(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -53,11 +69,23 @@ public class Tasks extends SQLiteOpenHelper {
     // ---------- METHODS
 
     @Override
+    /**
+     * This method is called one time, to create the database.
+     *
+     * @param database The SQLite database.
+     */
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(TASKS_CREATE);
     }
 
     @Override
+    /**
+     * This method is called when the database needs to be upgraded.
+     *
+     * @param database The SQLite database.
+     * @param oldVersion The old version of the database.
+     * @param newVersion The new version of the database.
+     */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(Tasks.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "

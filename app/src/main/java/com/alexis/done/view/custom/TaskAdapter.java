@@ -1,3 +1,9 @@
+/*
+ * Programmation Web et Mobile - M4103C/M4104C
+ *
+ * class TaskAdapter.java
+ */
+
 package com.alexis.done.view.custom;
 
 import android.content.Context;
@@ -15,14 +21,30 @@ import com.alexis.done.model.Task;
 import java.util.ArrayList;
 
 /**
- * Created by Alexis on 05/02/2015.
+ * This class handle the item of the list.
+ * It is a part of the adapter pattern.
  *
+ * @version 1.0 - 11/02/15
+ * @author BUSSENEAU Alexis - ROBIN Alexis
+ * @see com.alexis.done.view.activities.MainActivity
  */
 public class TaskAdapter extends BaseAdapter {
 
+    /**
+    * The list containing the task.
+    */
     private ArrayList<Task> listTask;
+
+    /**
+    * The layout inflater of the list.
+    */
     private LayoutInflater inflater;
 
+    /**
+    * Constructs a task adapter.
+    *
+    * @param context The activity where the list is display.
+    */
     public TaskAdapter(Context context) {
         listTask = new ArrayList<Task>();
         inflater = LayoutInflater.from(context);
@@ -47,6 +69,7 @@ public class TaskAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
 
+        // Initializes the view if is not setted.
         if (convertView == null) {
             view = inflater.inflate(R.layout.list_view, parent, false);
         }
@@ -54,6 +77,7 @@ public class TaskAdapter extends BaseAdapter {
             view = convertView;
         }
 
+        // Fills an item from the list with information (title, description...)
         TextView titleView = (TextView) view.findViewById(R.id.title_listView);
         titleView.setText( listTask.get(position).getTitle() );
 
@@ -69,20 +93,34 @@ public class TaskAdapter extends BaseAdapter {
         TextView durationView = (TextView) view.findViewById(R.id.duration_listView);
         durationView.setText( listTask.get(position).getDuration() );
 
+        // Applies the color of the image depending on the progress.
         ImageView iconView = (ImageView) view.findViewById(R.id.icon_listView);
-        iconView.setBackgroundColor(Color.parseColor("#00CC00"));
-        int alpha = alphaCalculation( listTask.get(position).getProgress() );
-        iconView.getBackground().setAlpha(alpha);
+        iconView.setBackgroundColor( Color.parseColor("#00CC00") );             // Sets the green color.
+        int alpha = alphaCalculation( listTask.get(position).getProgress() );   // Calculates the alpha value (the transparency) with the progress.
+        iconView.getBackground().setAlpha(alpha);                               // Sets the alpha value of the color.
 
         return view;
     }
 
+    /**
+    * Calculates the alpha value to determine the color transparency.
+    *
+    * @param progress The progress value of the task.
+    *
+    * @return The alpha value.
+    */
+    private int alphaCalculation(int progress) {
+        return (progress * 255)/100;
+    }
+
+    /**
+    * Refreshes the list with the new list specified.
+    *
+    * @param listTask THe new list of the adapter.
+    */
     public void setListTask(ArrayList<Task> listTask){
         this.listTask = listTask;
         this.notifyDataSetChanged();
     }
 
-    private int alphaCalculation(int progress) {
-        return (progress * 255)/100;
-    }
 }

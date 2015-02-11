@@ -42,7 +42,7 @@
     <string name="button_date_view_add_task">Modifier la date</string>
     <string name="button_time_view_add_task">Modifier l\'heure</string>
     <string name="button_duration_view_add_task">Modifier la durée</string>
-    <string name="default_duration_view_add_task">1h00</string>
+    <string name="default_duration_view_add_task">0h00</string>
     <string name="description_view_add_task">Description</string>
     <string name="hint_input_description_view_add_task">Entrer la description de la tâche</string>
     <string name="percent_view_add_task">% réalisé</string>

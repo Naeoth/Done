@@ -1,3 +1,9 @@
+/*
+ * Programmation Web et Mobile - M4103C/M4104C
+ *
+ * class TasksDAO.java
+ */
+
 package com.alexis.done.model.db;
 
 import android.content.ContentValues;
@@ -10,8 +16,10 @@ import com.alexis.done.model.Task;
 import java.util.ArrayList;
 
 /**
- * Created by Alexis on 23/01/2015.
+ * This class allows to make some operations on the SQLite internal database.
  *
+ * @version 1.0 - 11/01/15
+ * @author BUSSENEAU Alexis - ROBIN Alexis
  */
 public class TasksDAO {
 
@@ -40,6 +48,11 @@ public class TasksDAO {
 
     // ---------- CONSTRUCTOR
 
+    /**
+    * The class's constructor.
+    *
+    * @param context The context of the current activity.
+    */
     public TasksDAO(Context context) {
         this.handler = new Tasks(context, NOM, null, VERSION);
     }
@@ -47,17 +60,43 @@ public class TasksDAO {
 
     // ---------- METHODS
 
+    /**
+    * This method allows to use the next methods. In fact, it makes the database writable.
+    *
+    * @return SQLiteDataBase The instance of the SQLiteDataBase.
+    */
     public SQLiteDatabase open() {
         db = handler.getWritableDatabase();
         return db;
-    } // ---------------------------------------------------------- open()
+    }
 
+    /**
+    * This method makes the database unwritable.
+    *
+    */
     public void close() {
         db.close();
-    } // ---------------------------------------------------------- close()
+    }
 
 
-    // ----- PROFILS
+    // ---------- GETTERS AND SETTERS
+
+    /**
+    * It returns the instance of the SQLiteDataBase.
+    *
+    * @return SQLiteDataBase The instance of the SQLiteDataBase.
+    */
+    public SQLiteDatabase getDb() {
+        return db;
+    }
+
+    /**
+    * This method returns the stored tasks list. There's two filters, by type or by progress.
+    *
+    * @param state The lvl of progression of the tasks you want.
+    * @param type  The type of he tasks you want.
+    * @return ArrayList<Task> The list of the tasks you want.
+    */
     public ArrayList<Task> getTasks(int state, int type) {
         ArrayList<Task> ret = new ArrayList<Task>();
         int tmpId, tmpType, tmpProgress;
@@ -66,6 +105,7 @@ public class TasksDAO {
         int max = 100;
         String condType = "";
 
+        // Handles the progress filters.
         switch (state) {
             case 1:
                 min = 1;
@@ -83,6 +123,7 @@ public class TasksDAO {
                 break;
         }
 
+        // Handles the type filters.
         if (type != 0) {
             condType = TASKS_TYPE + " = " + (type - 1)  +" AND ";
         }
@@ -108,6 +149,12 @@ public class TasksDAO {
         return ret;
     }
 
+    /**
+    * This method allows you to insert a Task in the database.
+    *
+    * @param taskToInsert The task which needs to be added to the database.
+    * @return double The result state of the insert operation.
+    */
     public double insertTask(Task taskToInsert) {
         long ret = 0;
 
@@ -129,10 +176,20 @@ public class TasksDAO {
         return ret;
     }
 
+    /**
+    * This method allows you to delete a Task of the database.
+    *
+    * @param taskToDelete The task which needs to be deleted to the database.
+    */
     public void deleteTask(Task taskToDelete) {
         db.delete(TASKS, TASKS_ID + "=" + taskToDelete.getId(), null);
     }
 
+    /**
+    * This method allows you to update a Task of the database.
+    *
+    * @param taskToUpdate The task which needs to be updated to the database.
+    */
     public void updateTask(Task taskToUpdate){
 
         ContentValues values = new ContentValues();
@@ -148,4 +205,5 @@ public class TasksDAO {
 
         db.update(TASKS, values, TASKS_ID + "=" +  taskToUpdate.getId(), null);
     }
+
 }
